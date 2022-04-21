@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <body style="min-width: 372px">
+    <div class="d-flex flex-column wrapper">
+
+      <main class="flex-fill">
+        <div class="container">
+          <div class="row g-3 mt-5">
+            <div class="col-12 col-sm-6">
+              <img [src]="selectedBook.imagem" class="img-thumbnail" />
+              <br class="clearfix" />
+              <div class="row mt-5 gx-3"></div>
+            </div>
+            <div class="col-12 col-sm-6">
+              <h1 class="txt-info">{{ selectedBook.titulo }}</h1>
+              <p>{{ selectedBook.autor }}</p>
+              <p align="justify" >
+                {{ selectedBook.descricao }}
+              </p>
+
+                <h3> Preço do item: {{ (selectedBook.preco | currency : 'R$')?.toString()?.replace('.', ',') }} </h3>
+
+                <p>
+                <button class="btn btn-lg btn-info" (click)="addBookToCart()">
+                  <i class="bi-cart"></i> Adicionar ao Carrinho
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
