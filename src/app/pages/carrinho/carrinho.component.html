@@ -1,0 +1,98 @@
+<body style="min-width: 372px">
+  <div class="d-flex flex-column wrapper">
+    <main class="flex-fill">
+      <div class="container">
+        <ul class="list-group mb-3">
+          <li class="list-group-item py-3">
+            <div *ngIf="addedBooksToCart.length === 0">
+              <h1 class="center"><strong>Seu carrinho está vazio</strong></h1>
+              <div class="imagem"><img src="../../../assets/img/cart/img-cart.jpg" alt=""></div>
+              <li class="list-group pt-3 pb-0" [routerLink]="'/home'">
+                <a
+                  class="btn btn-info btn-lg ms-2 mb-3 text-white"
+                  ><strong>Ir Comprar</strong>
+            </a>
+            </li>
+            </div>
+            <div
+              class="row g-3"
+              *ngFor="let book of addedBooksToCart; let i = index"
+            >
+              <div class="col-4 col-md-3 col-lg-2">
+                <a>
+                  <img (click)="goToBookDetailsPage(book.id)" [src]="book.imagem" class="img-thumbnail" />
+                </a>
+              </div>
+              <div
+              (click)="goToBookDetailsPage(book.id)"
+                class="col-8 col-md-9 col-lg-7 col-xl-8 text-left align-self-center"
+              >
+                <h4>
+                  <b>
+                    <a class="text-decoration-none text-info">
+                      {{ book.titulo }}
+                    </a>
+                  </b>
+                </h4>
+              </div>
+              <div
+                class="col-6 offset-6 col-sm-6 offset-sm-6 col-md-4 offset-md-8 col-lg-3 offset-lg-0 col-xl-2 align-self-center mt-3"
+              >
+                <div class="input-group">
+                  <button class="btn btn-outline-dark btn-sm" type="button">
+                    <i
+                      class="bi-caret-down"
+                      style="font-size: 16px; line-height: 16px"
+                      (click)="decreaseItemQuantity(book, i)"
+                    ></i>
+                  </button>
+                  <input
+                    type="number"
+                    class="form-control text-center border-dark"
+                    [value]="book.quantidade"
+                    (change)="atualizarOValorTotalDoLivro($event, book, i)"
+                  />
+                  <button class="btn btn-outline-dark btn-sm" type="button">
+                    <i
+                      class="bi-caret-up"
+                      style="font-size: 16px; line-height: 16px"
+                      (click)="increaseItemQuantity(book, i)"
+                    ></i>
+                  </button>
+                  <button
+                    class="btn btn-outline-danger border-dark btn-sm"
+                    type="button"
+                    (click)="delBookToCart(i)"
+                  >
+                    <i
+                      class="bi-trash"
+                      style="font-size: 16px; line-height: 16px"
+                    ></i>
+                  </button>
+                </div>
+                <div class="text-right mt-2">
+                  <small class="text-secondary"
+                  >Valor do item: {{ (book.preco | currency : 'R$')?.toString()?.replace('.', ',') }}</small
+                  >
+                  <br />
+                  <span class="text dark">Valor Total: {{ (book.preco * book.quantidade | currency : 'R$')?.toString()?.replace('.', ',') }} </span>
+                </div>
+              </div>
+            </div>
+          <li class="list-group-item pt-3 pb-0" *ngIf="addedBooksToCart.length != 0">
+            <div class="text-end">
+              <h4 class="text-dark mb-3">Valor total: {{ (totalOfBooksValue | currency : 'R$')?.toString()?.replace('.', ',') }}</h4>
+              <a href="index.html" class="btn btn-outline-success btn-lg mb-3">
+                Continuar Comprando
+              </a>
+              <a
+                href="fechamento_pedido.html"
+                class="btn btn-info btn-lg ms-2 mb-3"
+                >Ir para o Pagamento</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </main>
+  </div>
+</body>
